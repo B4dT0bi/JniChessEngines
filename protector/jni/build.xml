@@ -1,0 +1,52 @@
+<project name="protector-natives" basedir="." default="all">
+    <target name="clean">
+        <ant antfile="build-windows32.xml" target="clean" />
+        <ant antfile="build-windows64.xml" target="clean" />
+        <ant antfile="build-linux32.xml" target="clean" />
+        <ant antfile="build-linux64.xml" target="clean" />
+        <ant antfile="build-android32.xml" target="clean" />
+
+    </target>
+
+    <target name="compile-natives">
+        <!-- TODO : <ant antfile="build-windows32.xml"/>-->
+        <!-- TODO : <ant antfile="build-windows64.xml"/>-->
+        <ant antfile="build-linux32.xml" />
+        <ant antfile="build-linux64.xml" />
+        <!-- TODO : pthread_cancel is not working in NDK! <ant antfile="build-android32.xml" /> -->
+
+    </target>
+
+    <target name="compile-natives-linux">
+        <ant antfile="build-linux32.xml" />
+        <ant antfile="build-linux64.xml" />
+    </target>
+
+    <target name="compile-natives-windows">
+        <ant antfile="build-windows32.xml" />
+        <ant antfile="build-windows64.xml" />
+    </target>
+
+    <target name="compile-natives-macosx">
+        <ant antfile="build-macosx32.xml" />
+        <ant antfile="build-macosx64.xml" />
+    </target>
+
+
+    <target name="pack-natives">
+        <jar destfile="../libs/protector-desktop-natives.jar">
+            <fileset dir="../libs/windows32" includes="protector.exe" />
+            <fileset dir="../libs/windows64" includes="protector64.exe" />
+            <fileset dir="../libs/linux32" includes="protector.elf" />
+            <fileset dir="../libs/linux64" includes="protector64.elf" />
+            <fileset dir="../libs/macosx32" includes="protector.mach" />
+            <fileset dir="../libs/macosx64" includes="protector64.mach" />
+
+        </jar>
+        <jar destfile="../libs/protector-android-natives.jar">
+            <fileset dir="../libs" includes="armeabi/* armeabi-v7a/* arm64-v8a/* x86/* x86_64/*" />
+        </jar>
+    </target>
+
+    <target name="all" depends="compile-natives,pack-natives" />
+</project>

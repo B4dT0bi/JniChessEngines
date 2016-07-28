@@ -1,0 +1,160 @@
+[Event "Chess by Milan"]
+[Site "?"]
+[Date "1983.??.??"]
+[Round "?"]
+[White "Vukcevic, M. [#3]"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/1nB1p3/3rp1p1/4kbP1/2PN2p1/1N1p2P1/3P4/Q1K5 w - - 0 1"]
+[PlyCount "5"]
+[EventDate "1983.??.??"]
+
+1. Qa8 $1 {Benko,P: 3'06'' (+NL); Mark V: 1'58'' (+NL); Lyon 68020: 1'' (+NL);
+The King: 0'' (+NL)} 1... Nd8 2. Qh1 Be4 3. Qh8# *
+
+[Event "Pachmann,L"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "?"]
+[White "NN [#3]"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/2P1P1P1/3PkP2/8/4K3/8/8/8 w - - 0 1"]
+[PlyCount "5"]
+
+1. e8=B Kxd6 2. c8=R Ke6 3. Rc6# *
+
+[Event "Wiener Schachmagazin"]
+[Site "?"]
+[Date "1949.??.??"]
+[Round "?"]
+[White "Lepuschuetz, H. [#4]"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "r6k/6r1/5Q2/2n5/n6B/7B/8/5K1R w - - 0 1"]
+[PlyCount "7"]
+[EventDate "1949.??.??"]
+
+1. Be6 $1 1... Nxe6 2. Qf7 Rxf7+ (2... Rf8 3. Bf6#) 3. Bf6+ Kg8 4. Rh8# *
+
+[Event "Die Schwalbe"]
+[Site "?"]
+[Date "1929.??.??"]
+[Round "?"]
+[White "Zepler, E. [#4]"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "r3k3/2Qp3R/1p6/1b2K3/4p3/8/5p2/8 w q - 0 1"]
+[PlyCount "7"]
+[EventDate "1929.??.??"]
+
+1. Kd4 $1 1... Ra4+ (1... f1=Q 2. Qe5+ Kd8 3. Rh8+ Qf8 4. Rxf8#) 2. Ke5 $1 2...
+Ra8 3. Qd6 Kd8 4. Rh8# *
+
+[Event "Sh v SSSR"]
+[Site "?"]
+[Date "1983.??.??"]
+[Round "?"]
+[White "Yarosh, L. [#4]"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "1q5R/P2N4/5p2/2p2p2/2Pk1b1n/6P1/PNpP1P1K/BQ3R1B w - - 0 1"]
+[PlyCount "7"]
+[EventDate "1983.??.??"]
+
+1. Rxh4 $1 1... cxb1=Q (1... cxb1=R 2. axb8=R Rxb2 3. Rb3 Kxc4 4. Rxf4#) (1...
+cxb1=B 2. axb8=B Be4 3. Bxf4 Bxh1 4. Be5#) (1... cxb1=N 2. axb8=N Nxd2 3. Nc6+
+Kc3 4. Rc1#) 2. axb8=Q Qxb2 (2... Qe4 3. Qxf4 Qxf4 4. Rxf4#) 3. Qb3 Qc3 4.
+Qxc3# *
+
+[Event "Sh v SSSR"]
+[Site "?"]
+[Date "1983.??.??"]
+[Round "?"]
+[White "Yarosh, L. [#4]"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "Bq1B1K2/3PpN2/P3Pp2/P1p2P2/2Pk1b1R/1p6/pN1P1P2/QR6 w - - 0 1"]
+[PlyCount "1"]
+[EventDate "1983.??.??"]
+
+1. a7 $1 *
+
+[Event "Nordiske Schackbund"]
+[Site "?"]
+[Date "1905.??.??"]
+[Round "?"]
+[White "Hoeg [#3]"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/R7/4kPP1/3ppp2/3B1P2/1K1P1P2/8/8 w - - 0 1"]
+[PlyCount "5"]
+[EventDate "1905.??.??"]
+
+1. f7 $1 1... Kd6 (1... exd4 2. f8=B Kf6 3. Ra6#) (1... e4 2. f8=Q exd3 3. Qe7#
+) (1... Kf6 2. f8=N exd4 3. Rf7#) (1... exf4 2. f8=R Kd6 3. Rf6#) 2. f8=Q+ Kc6
+3. Qc5# *
+
+[Event "DSZ"]
+[Site "?"]
+[Date "1969.??.??"]
+[Round "?"]
+[White "Breuer, Jos [#3]"]
+[Black "?"]
+[Result "1-0"]
+[SetUp "1"]
+[FEN "8/1N1p1K2/8/1R1pkp2/3p1RpP/6B1/3P4/3nn3 w - - 0 1"]
+[PlyCount "5"]
+[EventDate "1969.??.??"]
+
+1. Ra5 d3 2. Rd4+ Kxd4 3. Ra4# 1-0
+
+[Event "Szachy"]
+[Site "?"]
+[Date "1949.??.??"]
+[Round "?"]
+[White "Goldstein, A. [#3]"]
+[Black "?"]
+[Result "1-0"]
+[SetUp "1"]
+[FEN "5B2/4Np1b/4pk2/p1Q1N3/6pK/r1n3pn/8/3q4 w - - 0 1"]
+[PlyCount "5"]
+[EventDate "1949.??.??"]
+
+1. Qe3 g2 2. Qf3+ Qxf3 3. Nd7# 1-0
+
+[Event "Bristol-tournament"]
+[Site "?"]
+[Date "1861.??.??"]
+[Round "?"]
+[White "Healey, F. [#3]"]
+[Black "?"]
+[Result "1-0"]
+[SetUp "1"]
+[FEN "8/1n3Np1/1N4Q1/1bkP4/p1p2p2/P1P2R2/3P2PK/B2R4 w - - 0 1"]
+[PlyCount "5"]
+[EventDate "1861.??.??"]
+
+1. Rh1 Be8 2. Qb1 Bb5 3. Qg1# 1-0
+
+[Event "Deutsch-Oesterreichische Tageszeitung"]
+[Site "?"]
+[Date "1926.??.??"]
+[Round "?"]
+[White "Heuaecker, P. [#3]"]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "kBr5/NRR5/1QB5/1P6/8/8/7K/8 w - - 0 1"]
+[PlyCount "5"]
+[EventDate "1926.??.??"]
+
+1. Kh3 Rf8 2. Rc8 Rf3+ 3. Bg3# *
+

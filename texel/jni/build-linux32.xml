@@ -1,0 +1,195 @@
+<project name="texel-Linux-32" basedir="." default="postcompile">
+    <!-- include the environment -->
+    <property environment="env"/>
+    <!-- output directory for temporary object files -->
+    <property name="buildDir" value="target/linux32"/>
+    <!-- output directory for the shared library -->
+    <property name="libsDir" value="../libs/linux32"/>
+    <!-- the name of the shared library -->
+    <property name="libName" value="texel.elf"/>
+    <!-- the jni header jniPlatform to use -->
+    <property name="jniPlatform" value="linux"/>
+    <!-- the compilerPrefix for the C & C++ compilers -->
+    <property name="compilerPrefix" value=""/>
+    <!--  the compilerSuffix for the C & C++ compilers -->
+    <property name="compilerSuffix" value=""/>
+
+    <!-- define gcc compiler, options and files to compile -->
+    <property name="gcc" value="${compilerPrefix}gcc${compilerSuffix}"/>
+    <property name="gcc-opts" value="-c -Wall -O2 -mfpmath=sse -msse -fmessage-length=0 -m32 -fPIC -std=c99"/>
+    <fileset id="gcc-files" dir="./">
+        <exclude name="target/"/>
+        <include name="src/gtb/gtb-att.c"/>
+        <include name="src/gtb/gtb-dec.c"/>
+        <include name="src/gtb/gtb-probe.c"/>
+        <include name="src/gtb/compression/wrap.c"/>
+        <include name="src/gtb/compression/lzma/Alloc.c"/>
+        <include name="src/gtb/compression/lzma/Bra86.c"/>
+        <include name="src/gtb/compression/lzma/LzFind.c"/>
+        <include name="src/gtb/compression/lzma/Lzma86Dec.c"/>
+        <include name="src/gtb/compression/lzma/Lzma86Enc.c"/>
+        <include name="src/gtb/compression/lzma/LzmaDec.c"/>
+        <include name="src/gtb/compression/lzma/LzmaEnc.c"/>
+        <include name="src/gtb/sysport/sysport.c"/>
+
+
+    </fileset>
+
+    <!-- define g++ compiler, options and files to compile -->
+    <property name="g++" value="${compilerPrefix}g++${compilerSuffix}"/>
+    <property name="g++-opts" value="-c -Wall -O2 -mfpmath=sse -msse -fmessage-length=0 -m32 -fPIC -std=c++11 -lpthread"/>
+    <fileset id="g++-files" dir="./">
+        <exclude name="target/"/>
+        <include name="src/bitBoard.cpp"/>
+        <include name="src/book.cpp"/>
+        <include name="src/computerPlayer.cpp"/>
+        <include name="src/endGameEval.cpp"/>
+        <include name="src/enginecontrol.cpp"/>
+        <include name="src/evaluate.cpp"/>
+        <include name="src/game.cpp"/>
+        <include name="src/history.cpp"/>
+        <include name="src/humanPlayer.cpp"/>
+        <include name="src/killerTable.cpp"/>
+        <include name="src/kpkTable.cpp"/>
+        <include name="src/krkpTable.cpp"/>
+        <include name="src/krpkrTable.cpp"/>
+        <include name="src/material.cpp"/>
+        <include name="src/move.cpp"/>
+        <include name="src/moveGen.cpp"/>
+        <include name="src/numa.cpp"/>
+        <include name="src/parallel.cpp"/>
+        <include name="src/parameters.cpp"/>
+        <include name="src/piece.cpp"/>
+        <include name="src/position.cpp"/>
+        <include name="src/search.cpp"/>
+        <include name="src/tbprobe.cpp"/>
+        <include name="src/texel.cpp"/>
+        <include name="src/textio.cpp"/>
+        <include name="src/transpositionTable.cpp"/>
+        <include name="src/treeLogger.cpp"/>
+        <include name="src/tuigame.cpp"/>
+        <include name="src/uciprotocol.cpp"/>
+        <include name="src/syzygy/rtb-probe.cpp"/>
+        <include name="src/util/logger.cpp"/>
+        <include name="src/util/random.cpp"/>
+        <include name="src/util/timeUtil.cpp"/>
+        <include name="src/util/util.cpp"/>
+
+
+    </fileset>
+
+    <!-- define linker and options -->
+    <property name="linker" value="${compilerPrefix}g++${compilerSuffix}"/>
+    <property name="linker-opts" value="-m32"/>
+    <property name="libraries" value="-pthread -lpthread"/>
+
+    <!-- cleans the build directory, removes all object files and shared libs -->
+    <target name="clean">
+        <delete includeemptydirs="true" quiet="true">
+            <fileset dir="${buildDir}"/>
+            <fileset dir="${libsDir}" includes="**/*" excludes="**/.svn"/>
+        </delete>
+    </target>
+
+    <target name="precompile">
+        <condition property="compiler-found">
+            <and>
+                <or>
+                    <!-- Include both b/c Windows might be either -->
+                    <available file="${g++}" filepath="${env.PATH}"/>
+                    <available file="${g++}" filepath="${env.Path}"/>
+                </or>
+                <or>
+                    <!-- Include both b/c Windows might be either -->
+                    <available file="${gcc}" filepath="${env.PATH}"/>
+                    <available file="${gcc}" filepath="${env.Path}"/>
+                </or>
+            </and>
+        </condition>
+        <condition property="has-compiler">
+            <equals arg1="${compiler-found}" arg2="true"/>
+        </condition>
+
+    </target>
+
+    <target name="create-build-dir" depends="precompile" if="has-compiler">
+        <!-- FIXME this is pretty nasty :/ -->
+        <copy todir="${buildDir}">
+            <fileset refid="g++-files"/>
+            <fileset refid="gcc-files"/>
+        </copy>
+        <delete>
+            <fileset dir="${buildDir}">
+                <include name="*"/>
+                <exclude name="*.o"/>
+            </fileset>
+        </delete>
+    </target>
+
+    <!-- compiles all C and C++ files to object files in the build directory -->
+    <target name="compile" depends="create-build-dir" if="has-compiler">
+        <mkdir dir="${buildDir}"/>
+        <apply failonerror="true" executable="${g++}" dest="${buildDir}" verbose="true">
+            <arg line="${g++-opts}"/>
+            <arg value="-I."/>
+            <arg value="-Isrc/gtb"/>
+            <arg value="-Isrc/gtb/compression"/>
+            <arg value="-Isrc/gtb/compression/lzma"/>
+            <arg value="-Isrc/gtb/sysport"/>
+            <arg value="-Isrc/syzygy"/>
+            <arg value="-Isrc/util"/>
+            <arg value="-Isrc"/>
+
+            <srcfile/>
+            <arg value="-o"/>
+            <targetfile/>
+            <fileset refid="g++-files"/>
+            <compositemapper>
+                <mapper type="glob" from="*.cpp" to="*.o"/>
+                <mapper type="glob" from="*.mm" to="*.o"/>
+            </compositemapper>
+        </apply>
+        <apply failonerror="true" executable="${gcc}" dest="${buildDir}" verbose="true">
+            <arg line="${gcc-opts}"/>
+            <arg value="-I."/>
+            <arg value="-Isrc/gtb"/>
+            <arg value="-Isrc/gtb/compression"/>
+            <arg value="-Isrc/gtb/compression/lzma"/>
+            <arg value="-Isrc/gtb/sysport"/>
+            <arg value="-Isrc/syzygy"/>
+            <arg value="-Isrc/util"/>
+            <arg value="-Isrc"/>
+
+            <srcfile/>
+            <arg value="-o"/>
+            <targetfile/>
+            <fileset refid="gcc-files"/>
+            <compositemapper>
+                <mapper type="glob" from="*.c" to="*.o"/>
+                <mapper type="glob" from="*.m" to="*.o"/>
+            </compositemapper>
+        </apply>
+    </target>
+
+    <!-- links the shared library based on the previously compiled object files -->
+    <target name="link" depends="compile" if="has-compiler">
+        <fileset dir="${buildDir}" id="objFileSet">
+            <patternset>
+                <include name="**/*.o"/>
+            </patternset>
+        </fileset>
+        <pathconvert pathsep=" " property="objFiles" refid="objFileSet"/>
+        <mkdir dir="${libsDir}"/>
+        <exec executable="${linker}" failonerror="true" dir="${buildDir}">
+            <arg line="${linker-opts}"/>
+            <arg value="-o"/>
+            <arg path="${libsDir}/${libName}"/>
+            <arg line="${objFiles}"/>
+            <arg line="${libraries}"/>
+        </exec>
+    </target>
+
+    <target name="postcompile" depends="link">
+
+    </target>
+</project>

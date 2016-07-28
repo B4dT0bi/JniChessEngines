@@ -1,0 +1,37 @@
+group 'de.badtobi.jnichessengines'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.7
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.3'
+}
+
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
+sourceSets.main.java.srcDirs = [ "src/" ]
+sourceSets.test.java.srcDirs = [ "test/" ]
+
+jar {
+    into ('/') {
+        from fileTree('./libs/linux32')
+        from fileTree('./libs/linux64')
+        from fileTree('./libs/win32')
+        from fileTree('./libs/win64')
+        from fileTree('./libs/macosx32')
+        from fileTree('./libs/macosx32')
+    }
+}
+
+repositories {
+    jcenter()
+}
+
+ant.importBuild 'jni/build.xml'
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+    compile fileTree(dir: 'libs', include: '*.jar')
+}

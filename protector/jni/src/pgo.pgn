@@ -1,0 +1,42 @@
+[Event "?"]
+[Site "?"]
+[Date "1908.??.??"]
+[Round "?"]
+[White "Betins, K."]
+[Black "?"]
+[Result "*"]
+[SetUp "1"]
+[FEN "8/8/7p/3KNN1k/2p4p/8/3P2p1/8 w - - 0 1"]
+[PlyCount "5"]
+[EventDate "1908.??.??"]
+
+1. Kc6 $1 g1=Q 2. Nxh4 $1 Qh1+ (2... Kxh4 3. Nf3+ Kg3 4. Nxg1 Kg2 5. Ne2 Kf2 6.
+Nc3 Ke1 7. Ne4 h5 $11) 3. Nhf3 *
+
+[Event "?"]
+[Site "?"]
+[Date "2006.12.08"]
+[Round "?"]
+[White "Protector, 1.1.0."]
+[Black "Toga II, 1.2.1x"]
+[Result "1-0"]
+[Annotator "Heid,Raimund"]
+[SetUp "1"]
+[FEN "3q1r1k/3nb1pp/3p1pP1/3QpP1P/1p2P3/r1n1B1N1/P1P5/K1N2R1R w - - 0 26"]
+[PlyCount "1"]
+
+26. h6 1-0
+
+[Event "Amsterdam"]
+[Site "?"]
+[Date "1992.??.??"]
+[Round "?"]
+[White "Short"]
+[Black "Timman"]
+[Result "1-0"]
+[SetUp "1"]
+[FEN "2r2rk1/1bpR1p2/1pq1pQp1/p3P2p/P1PR3P/5N2/2P2PPK/8 w - - 0 1"]
+[PlyCount "5"]
+[EventDate "1992.??.??"]
+
+1. Kg3 Rce8 2. Kf4 Bc8 3. Kg5 1-0

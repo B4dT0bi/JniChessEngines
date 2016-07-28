@@ -1,0 +1,127 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.1.2'
+    }
+}
+
+allprojects {
+    apply plugin: "eclipse"
+    apply plugin: "idea"
+
+    version = '1.0'
+
+    repositories {
+        jcenter()
+        maven { url "https://oss.sonatype.org/content/repositories/releases/" }
+    }
+}
+
+project(":core-api") {
+    apply plugin: "java"
+
+
+    dependencies {
+        testCompile group: 'junit', name: 'junit', version: '4.11'
+    }
+}
+
+project(":stockfish") {
+    apply plugin: "java"
+
+
+    dependencies {
+        testCompile group: 'junit', name: 'junit', version: '4.11'
+        compile project(":core-api")
+    }
+}
+
+project(":ethereal") {
+    apply plugin: "java"
+
+
+    dependencies {
+        testCompile group: 'junit', name: 'junit', version: '4.11'
+        compile project(":core-api")
+    }
+}
+
+project(":gull") {
+    apply plugin: "java"
+
+
+    dependencies {
+        testCompile group: 'junit', name: 'junit', version: '4.11'
+        compile project(":core-api")
+    }
+}
+
+project(":texel") {
+    apply plugin: "java"
+
+
+    dependencies {
+        testCompile group: 'junit', name: 'junit', version: '4.11'
+        compile project(":core-api")
+    }
+}
+
+project(":senpai") {
+    apply plugin: "java"
+
+
+    dependencies {
+        testCompile group: 'junit', name: 'junit', version: '4.11'
+        compile project(":core-api")
+    }
+}
+
+project(":protector") {
+    apply plugin: "java"
+
+
+    dependencies {
+        testCompile group: 'junit', name: 'junit', version: '4.11'
+        compile project(":core-api")
+    }
+}
+
+project(":toga_II") {
+    apply plugin: "java"
+
+
+    dependencies {
+        testCompile group: 'junit', name: 'junit', version: '4.11'
+        compile project(":core-api")
+    }
+}
+
+project(":crafty") {
+    apply plugin: "java"
+
+
+    dependencies {
+        testCompile group: 'junit', name: 'junit', version: '4.11'
+        compile project(":core-api")
+    }
+}
+
+project(":murka") {
+    apply plugin: "java"
+
+
+    dependencies {
+        testCompile group: 'junit', name: 'junit', version: '4.11'
+        compile project(":core-api")
+    }
+}
+
+project(":android-core") {
+    apply plugin: 'com.android.library'
+
+    dependencies {
+        compile project(":core-api")
+    }
+}
