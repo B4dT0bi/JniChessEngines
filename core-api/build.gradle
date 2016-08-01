@@ -1,5 +1,5 @@
 apply plugin: 'java'
-
+version '0.0.1'
 sourceCompatibility = 1.7
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
@@ -8,4 +8,10 @@ sourceSets.test.java.srcDirs = [ "test/" ]
 
 
 dependencies {
+}
+
+apply plugin: 'maven'
+task writeNewPom << {
+    pom {
+    }.writeTo("pom.xml")
 }

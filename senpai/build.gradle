@@ -1,5 +1,5 @@
 group 'de.badtobi.jnichessengines'
-version '1.0-SNAPSHOT'
+version '0.0.1'
 
 apply plugin: 'java'
 
@@ -20,8 +20,8 @@ task desktopJar(type: Jar) {
     into ('/') {
         from fileTree('./libs/linux32')
         from fileTree('./libs/linux64')
-        from fileTree('./libs/win32')
-        from fileTree('./libs/win64')
+        from fileTree('./libs/windows32')
+        from fileTree('./libs/windows64')
         from fileTree('./libs/macosx32')
         from fileTree('./libs/macosx64')
     }

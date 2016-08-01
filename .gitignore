@@ -1,0 +1,9 @@
+*.iml
+*.jar
+*.elf
+target
+build
+obj
+.idea
+.gradle
+libs
