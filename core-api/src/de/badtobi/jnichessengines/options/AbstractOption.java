@@ -15,6 +15,7 @@ public abstract class AbstractOption {
     protected String defaultValue;
     protected String minValue;
     protected String maxValue;
+    private String original;
     private OptionApplyer optionApplyer = null;
     protected List<String> vars = new ArrayList<String>();
 
@@ -35,7 +36,7 @@ public abstract class AbstractOption {
         } else {
             throw new ChessEngineException("unknown option : " + str);
         }
-
+        result.original = str;
         result.type = type;
         result.id = tokens[2];
         int i = 3;
@@ -86,5 +87,17 @@ public abstract class AbstractOption {
 
     public void registerOptionApplyer(final OptionApplyer optionApplyer) {
         this.optionApplyer = optionApplyer;
+    }
+
+    public String getOriginalUciString() {
+        return original;
+    }
+
+    public String getValueAsString() {
+        return value;
+    }
+
+    public void setValueAsString(String value) {
+        this.value = value;
     }
 }

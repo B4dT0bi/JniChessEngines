@@ -1,4 +1,4 @@
-<project name="stockfish-Windows-32" basedir="." default="postcompile">
+<project name="texel-Windows-32" basedir="." default="postcompile">
     <!-- include the environment -->
     <property environment="env"/>
     <!-- output directory for temporary object files -->
@@ -6,20 +6,31 @@
     <!-- output directory for the shared library -->
     <property name="libsDir" value="../libs/windows32"/>
     <!-- the name of the shared library -->
-    <property name="libName" value="stockfish.exe"/>
+    <property name="libName" value="texel.exe"/>
     <!-- the jni header jniPlatform to use -->
     <property name="jniPlatform" value="win32"/>
     <!-- the compilerPrefix for the C & C++ compilers -->
-    <property name="compilerPrefix" value="i686-w64-mingw32-"/>
+    <property name="compilerPrefix" value="mingw32-"/>
     <!--  the compilerSuffix for the C & C++ compilers -->
-    <property name="compilerSuffix" value=""/>
+    <property name="compilerSuffix" value=".exe"/>
 
     <!-- define gcc compiler, options and files to compile -->
     <property name="gcc" value="${compilerPrefix}gcc${compilerSuffix}"/>
     <property name="gcc-opts" value="-c -Wall -O2 -mfpmath=sse -msse2 -fmessage-length=0 -m32 -std=c99"/>
     <fileset id="gcc-files" dir="./">
         <exclude name="target/"/>
-
+        <include name="src/gtb/gtb-att.c"/>
+        <include name="src/gtb/gtb-dec.c"/>
+        <include name="src/gtb/gtb-probe.c"/>
+        <include name="src/gtb/compression/wrap.c"/>
+        <include name="src/gtb/compression/lzma/Alloc.c"/>
+        <include name="src/gtb/compression/lzma/Bra86.c"/>
+        <include name="src/gtb/compression/lzma/LzFind.c"/>
+        <include name="src/gtb/compression/lzma/Lzma86Dec.c"/>
+        <include name="src/gtb/compression/lzma/Lzma86Enc.c"/>
+        <include name="src/gtb/compression/lzma/LzmaDec.c"/>
+        <include name="src/gtb/compression/lzma/LzmaEnc.c"/>
+        <include name="src/gtb/sysport/sysport.c"/>
 
     </fileset>
 
@@ -28,28 +39,40 @@
     <property name="g++-opts" value="-c -Wall -O2 -mfpmath=sse -msse2 -fmessage-length=0 -m32 -std=c++11"/>
     <fileset id="g++-files" dir="./">
         <exclude name="target/"/>
-        <include name="stockfish/benchmark.cpp"/>
-        <include name="stockfish/bitbase.cpp"/>
-        <include name="stockfish/bitboard.cpp"/>
-        <include name="stockfish/endgame.cpp"/>
-        <include name="stockfish/evaluate.cpp"/>
-        <include name="stockfish/main.cpp"/>
-        <include name="stockfish/material.cpp"/>
-        <include name="stockfish/misc.cpp"/>
-        <include name="stockfish/movegen.cpp"/>
-        <include name="stockfish/movepick.cpp"/>
-        <include name="stockfish/pawns.cpp"/>
-        <include name="stockfish/position.cpp"/>
-        <include name="stockfish/psqt.cpp"/>
-        <include name="stockfish/search.cpp"/>
-        <include name="stockfish/thread.cpp"/>
-        <include name="stockfish/timeman.cpp"/>
-        <include name="stockfish/tt.cpp"/>
-        <include name="stockfish/uci.cpp"/>
-        <include name="stockfish/ucioption.cpp"/>
-        <include name="stockfish/syzygy/tbprobe.cpp"/>
-
-
+        <include name="src/bitBoard.cpp"/>
+        <include name="src/book.cpp"/>
+        <include name="src/computerPlayer.cpp"/>
+        <include name="src/endGameEval.cpp"/>
+        <include name="src/enginecontrol.cpp"/>
+        <include name="src/evaluate.cpp"/>
+        <include name="src/game.cpp"/>
+        <include name="src/history.cpp"/>
+        <include name="src/humanPlayer.cpp"/>
+        <include name="src/killerTable.cpp"/>
+        <include name="src/kpkTable.cpp"/>
+        <include name="src/krkpTable.cpp"/>
+        <include name="src/krpkrTable.cpp"/>
+        <include name="src/material.cpp"/>
+        <include name="src/move.cpp"/>
+        <include name="src/moveGen.cpp"/>
+        <include name="src/numa.cpp"/>
+        <include name="src/parallel.cpp"/>
+        <include name="src/parameters.cpp"/>
+        <include name="src/piece.cpp"/>
+        <include name="src/position.cpp"/>
+        <include name="src/search.cpp"/>
+        <include name="src/tbprobe.cpp"/>
+        <include name="src/texel.cpp"/>
+        <include name="src/textio.cpp"/>
+        <include name="src/transpositionTable.cpp"/>
+        <include name="src/treeLogger.cpp"/>
+        <include name="src/tuigame.cpp"/>
+        <include name="src/uciprotocol.cpp"/>
+        <include name="src/syzygy/rtb-probe.cpp"/>
+        <include name="src/util/logger.cpp"/>
+        <include name="src/util/random.cpp"/>
+        <include name="src/util/timeUtil.cpp"/>
+        <include name="src/util/util.cpp"/>
     </fileset>
 
     <!-- define linker and options -->
@@ -106,9 +129,13 @@
         <apply failonerror="true" executable="${g++}" dest="${buildDir}" verbose="true">
             <arg line="${g++-opts}"/>
             <arg value="-I."/>
-            <arg value="-I/usr/i686-w64-mingw32/include/"/>
-            <arg value="-Istockfish/syzygy"/>
-            <arg value="-Istockfish"/>
+            <arg value="-Isrc/gtb"/>
+            <arg value="-Isrc/gtb/compression"/>
+            <arg value="-Isrc/gtb/compression/lzma"/>
+            <arg value="-Isrc/gtb/sysport"/>
+            <arg value="-Isrc/syzygy"/>
+            <arg value="-Isrc/util"/>
+            <arg value="-Isrc"/>
 
             <srcfile/>
             <arg value="-o"/>
@@ -122,9 +149,13 @@
         <apply failonerror="true" executable="${gcc}" dest="${buildDir}" verbose="true">
             <arg line="${gcc-opts}"/>
             <arg value="-I."/>
-            <arg value="-I/usr/i686-w64-mingw32/include/"/>
-            <arg value="-Istockfish/syzygy"/>
-            <arg value="-Istockfish"/>
+            <arg value="-Isrc/gtb"/>
+            <arg value="-Isrc/gtb/compression"/>
+            <arg value="-Isrc/gtb/compression/lzma"/>
+            <arg value="-Isrc/gtb/sysport"/>
+            <arg value="-Isrc/syzygy"/>
+            <arg value="-Isrc/util"/>
+            <arg value="-Isrc"/>
 
             <srcfile/>
             <arg value="-o"/>
