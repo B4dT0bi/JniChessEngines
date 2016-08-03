@@ -6,7 +6,7 @@ package de.badtobi.jnichessengines.options;
 public class SpinOption extends AbstractOption {
 
     public int getValue() {
-        if (value == null) return Integer.parseInt(defaultValue);
+        if (value == null || "".equals(value)) return Integer.parseInt(defaultValue);
         return Integer.parseInt(value);
     }
 

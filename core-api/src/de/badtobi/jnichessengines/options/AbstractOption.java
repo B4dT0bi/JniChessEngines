@@ -74,7 +74,7 @@ public abstract class AbstractOption {
     }
 
     public String toUciString() {
-        return value != null ? "setoption name " + id + " value " + value : null;
+        return value != null && !"".equals(value) ? "setoption name " + id + " value " + value : null;
     }
 
     public String getId() {
