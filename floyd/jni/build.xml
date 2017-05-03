@@ -1,0 +1,58 @@
+
+<project name="pigeon-natives" basedir="." default="all">
+	<property environment="env"/>
+	<target name="clean">
+		<ant antfile="build-windows32.xml" target="clean"/>
+		<ant antfile="build-windows64.xml" target="clean"/>
+		<ant antfile="build-linux32.xml" target="clean"/>
+		<ant antfile="build-linux64.xml" target="clean"/>
+		<ant antfile="build-macosx32.xml" target="clean"/>
+		<ant antfile="build-macosx64.xml" target="clean"/>
+		<ant antfile="build-android32.xml" target="clean"/>
+	</target>
+
+	<target name="compile-natives">
+		<!-- TODO : <ant antfile="build-windows32.xml"/>-->
+		<!-- TODO : <ant antfile="build-windows64.xml"/>-->
+		<ant antfile="build-linux32.xml"/>
+		<ant antfile="build-linux64.xml"/>
+		<ant antfile="build-android32.xml"/>
+
+	</target>
+
+	<target name="compile-natives-android">
+		<ant antfile="build-android32.xml"/>
+	</target>
+
+	<target name="compile-natives-linux">
+		<ant antfile="build-linux32.xml"/>
+		<ant antfile="build-linux64.xml"/>
+	</target>
+
+	<target name="compile-natives-windows">
+		<ant antfile="build-windows32.xml"/>
+		<ant antfile="build-windows64.xml"/>
+	</target>
+
+	<target name="compile-natives-macosx">
+		<ant antfile="build-macosx32.xml"/>
+		<ant antfile="build-macosx64.xml"/>
+	</target>
+
+	<target name="pack-natives">
+		<jar destfile="../libs/pigeon-desktop-natives.jar">
+			<fileset dir="../libs/windows32" includes="pigeon.exe"/>
+			<fileset dir="../libs/windows64" includes="pigeon64.exe"/>
+			<fileset dir="../libs/linux32" includes="pigeon.elf"/>
+			<fileset dir="../libs/linux64" includes="pigeon64.elf"/>
+			<fileset dir="../libs/macosx32" includes="pigeon.mach"/>
+			<fileset dir="../libs/macosx64" includes="pigeon64.mach"/>
+
+		</jar>
+		<jar destfile="../libs/pigeon-android-natives.jar">
+			<fileset dir="../libs" includes="armeabi/* armeabi-v7a/* arm64-v8a/* x86/* x86_64/*"/>
+		</jar>
+	</target>
+
+	<target name="all" depends="compile-natives,pack-natives"/>
+</project>

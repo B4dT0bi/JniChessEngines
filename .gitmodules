@@ -1,0 +1,15 @@
+[submodule "hawkeye/jni/Hawkeye"]
+	path = hawkeye/jni/Hawkeye
+	url = https://github.com/MichaelB7/Hawkeye.git
+[submodule "common/sse2neon"]
+	path = common/sse2neon
+	url = https://github.com/jratcliff63367/sse2neon.git
+[submodule "sayuri/jni/sayuri"]
+	path = sayuri/jni/sayuri
+	url = https://github.com/MetalPhaeton/sayuri.git
+[submodule "pigeon/jni/pigeon"]
+	path = pigeon/jni/pigeon
+	url = https://github.com/StuartRiffle/pigeon.git
+[submodule "floyd/jni/floyd"]
+	path = floyd/jni/floyd
+	url = https://github.com/kervinck/floyd.git

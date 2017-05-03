@@ -150,7 +150,7 @@ public abstract class ExternalEngine implements ChessEngine {
     }
 
     private File pathToEngine() {
-        return new File(name);
+        return new File(executable);
     }
 
     private InputStream findResource(String name) throws FileNotFoundException {

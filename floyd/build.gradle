@@ -1,0 +1,60 @@
+group 'de.badtobi.jnichessengines'
+version '0.9'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.7
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.3'
+}
+
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
+sourceSets.main.java.srcDirs = [ "src/" ]
+sourceSets.test.java.srcDirs = [ "test/" ]
+
+task desktopJar(type: Jar) {
+    from(sourceSets.main.output)
+    appendix ('desktop')
+    into ('/') {
+        from fileTree('./libs/linux32')
+        from fileTree('./libs/linux64')
+        from fileTree('./libs/windows32')
+        from fileTree('./libs/windows64')
+        from fileTree('./libs/macosx32')
+        from fileTree('./libs/macosx64')
+    }
+}
+
+task androidJar(type: Jar) {
+    from(sourceSets.main.output)
+    appendix ('android')
+    into ('/arm64-v8a') {
+        from fileTree('./libs/arm64-v8a')
+    }
+    into ('/armeabi') {
+        from fileTree('./libs/armeabi')
+    }
+    into ('/armeabi-v7a') {
+        from fileTree('./libs/armeabi-v7a')
+    }
+    into ('/x86') {
+        from fileTree('./libs/x86')
+    }
+    into ('/x86_64') {
+        from fileTree('./libs/x86_64')
+    }
+}
+
+repositories {
+    jcenter()
+}
+
+ant.importBuild 'jni/build.xml'
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+    compile fileTree(dir: 'libs', include: '*.jar')
+    compile project(":core-api")
+}

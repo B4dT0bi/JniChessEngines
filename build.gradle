@@ -28,6 +28,36 @@ project(":core-api") {
     }
 }
 
+project(":arasan") {
+    apply plugin: "java"
+
+
+    dependencies {
+        testCompile group: 'junit', name: 'junit', version: '4.11'
+        compile project(":core-api")
+    }
+}
+
+project(":hawkeye") {
+    apply plugin: "java"
+
+
+    dependencies {
+        testCompile group: 'junit', name: 'junit', version: '4.11'
+        compile project(":core-api")
+    }
+}
+
+project(":sayuri") {
+    apply plugin: "java"
+
+
+    dependencies {
+        testCompile group: 'junit', name: 'junit', version: '4.11'
+        compile project(":core-api")
+    }
+}
+
 project(":stockfish") {
     apply plugin: "java"
 
