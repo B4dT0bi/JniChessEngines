@@ -20,23 +20,27 @@ public class OsHelper {
                 name + ".mach", name + "64.mach"); // mac
     }
 
-    private static String getAndroidExecutable(String name) {
-        try {
-            Object object = OsHelper.class.getClassLoader().loadClass("de.badtobi.jnichessengines.androidCore.AndroidOsHelper").newInstance();
-            AndroidOsHelperInterface aohi = (AndroidOsHelperInterface) object;
-            for (String supportedAbi : aohi.getABIs()) {
-                if (OsHelper.class.getClassLoader().getResource(supportedAbi + "/" + name) != null) {
-                    return supportedAbi;
-                }
-            }
-            throw new ChessEngineException("Could not find an ABI which matches the supported ones (" + Arrays.toString(aohi.getABIs()) + ") for engine : " + name);
-        } catch (InstantiationException e) {
-            throw new ChessEngineException("Cannot load Android Helper class. Did you add android-core as dependency?", e);
-        } catch (IllegalAccessException e) {
-            throw new ChessEngineException("Cannot load Android Helper class. Did you add android-core as dependency?", e);
-        } catch (ClassNotFoundException e) {
-            throw new ChessEngineException("Cannot load Android Helper class. Did you add android-core as dependency?", e);
+    private static AndroidOsHelperInterface androidOsHelperInterface;
+
+    public static void setAndroidOsHelperInterface(AndroidOsHelperInterface iAndroidOsHelperInterface) {
+        androidOsHelperInterface = iAndroidOsHelperInterface;
+    }
+
+    private static AndroidOsHelperInterface getAndroidOsHelperInterface() {
+        if (androidOsHelperInterface == null) {
+            throw new ChessEngineException("Cannot get Android Helper class. Did you add android-core as dependency? And instanciated it?");
         }
+        return androidOsHelperInterface;
+    }
+
+    private static String getAndroidExecutable(String name) {
+        AndroidOsHelperInterface aohi = getAndroidOsHelperInterface();
+        for (String supportedAbi : aohi.getABIs()) {
+            if (OsHelper.class.getClassLoader().getResource(supportedAbi + "/" + name) != null) {
+                return supportedAbi + "/" + name;
+            }
+        }
+        throw new ChessEngineException("Could not find an ABI which matches the supported ones (" + Arrays.toString(aohi.getABIs()) + ") for engine : " + name);
     }
 
     public static String getExecutable(String linux32, String linux64, String win32, String win64, String mac32, String mac64) {
@@ -71,6 +75,11 @@ public class OsHelper {
     }
 
     public static void setExecuteableFlag(File file) {
+        if (isAndroid()) {
+            if (getAndroidOsHelperInterface().setExecuteableFlag(file.getAbsolutePath())) {
+                return;
+            }
+        }
         if (!file.setExecutable(true)) {
             if (isUnix() || isMac()) {
                 try {
@@ -80,5 +89,9 @@ public class OsHelper {
                 }
             }
         }
+    }
+
+    public static String getPathToWrite() {
+        return isAndroid() ? getAndroidOsHelperInterface().getPathToWrite() : "";
     }
 }

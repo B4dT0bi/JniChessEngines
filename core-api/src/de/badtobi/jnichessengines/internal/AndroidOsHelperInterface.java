@@ -5,4 +5,6 @@ package de.badtobi.jnichessengines.internal;
  */
 public interface AndroidOsHelperInterface {
     String [] getABIs();
+    String getPathToWrite();
+    boolean setExecuteableFlag(String file);
 }

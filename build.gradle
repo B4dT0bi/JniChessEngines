@@ -3,7 +3,8 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.1.2'
+        classpath 'com.android.tools.build:gradle:2.2.0'
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
     }
 }
 
@@ -16,15 +17,6 @@ allprojects {
     repositories {
         jcenter()
         maven { url "https://oss.sonatype.org/content/repositories/releases/" }
-    }
-}
-
-project(":core-api") {
-    apply plugin: "java"
-
-
-    dependencies {
-        testCompile group: 'junit', name: 'junit', version: '4.11'
     }
 }
 
@@ -144,14 +136,6 @@ project(":murka") {
 
     dependencies {
         testCompile group: 'junit', name: 'junit', version: '4.11'
-        compile project(":core-api")
-    }
-}
-
-project(":android-core") {
-    apply plugin: 'com.android.library'
-
-    dependencies {
         compile project(":core-api")
     }
 }
