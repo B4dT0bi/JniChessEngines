@@ -1,11 +1,19 @@
 package de.badtobi.jnichessengines.internal;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+
 import de.badtobi.jnichessengines.ChessEngine;
 import de.badtobi.jnichessengines.ChessEngineException;
 import de.badtobi.jnichessengines.ChessEngineListener;
 import de.badtobi.jnichessengines.EngineLogger;
-
-import java.io.*;
 
 /**
  * Created by b4dt0bi on 13.07.16.
@@ -51,9 +59,15 @@ public abstract class ExternalEngine implements ChessEngine {
                         if ((ep == null) || Thread.currentThread().isInterrupted())
                             return;
                         try {
-                            int len = ep.getErrorStream().read(buffer, 0, 1);
-                            if (len < 0)
-                                break;
+                            int len = 0;
+                            StringBuffer stringBuffer = new StringBuffer();
+                            while ((len = ep.getErrorStream().read(buffer)) != -1) {
+                                stringBuffer.append(new String(buffer, 0, len));
+                            }
+                            if (stringBuffer.length() > 0) {
+                                getLogger().log("", stringBuffer.toString());
+                                getLogger().handleException(new ChessEngineException(stringBuffer.toString()));
+                            }
                         } catch (IOException e) {
                             return;
                         }
@@ -138,12 +152,16 @@ public abstract class ExternalEngine implements ChessEngine {
 
     private File prepEngine() throws FileNotFoundException {
         File engineFile = pathToEngine();
+        /*
         if (engineFile.exists()) {
             OsHelper.setExecuteableFlag(engineFile);
             return engineFile; // TODO : check lastmod ?
         }
+        */
+        if (engineFile.exists()) engineFile.delete();
         InputStream engineStream = findResource(executable);
-        if (engineStream == null) throw new ChessEngineException("executable ("+executable+") could not be found, check dependencies!");
+        if (engineStream == null)
+            throw new ChessEngineException("executable (" + executable + ") could not be found, check dependencies!");
         copyEngine(engineStream, engineFile);
         OsHelper.setExecuteableFlag(engineFile);
         return engineFile;
