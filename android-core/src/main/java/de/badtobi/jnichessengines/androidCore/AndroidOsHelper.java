@@ -24,12 +24,23 @@ public class AndroidOsHelper implements AndroidOsHelperInterface {
 
     public String[] getABIs() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            return Build.SUPPORTED_ABIS;
+            return addNoPIEIfNeeded(Build.SUPPORTED_ABIS);
         } else {
-            return new String[]{Build.CPU_ABI};
+            return addNoPIEIfNeeded(new String[]{Build.CPU_ABI});
         }
     }
 
+    private String[] addNoPIEIfNeeded(String [] abis) {
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT_WATCH) {
+            String [] result = new String[abis.length];
+            for (int i = 0; i < result.length; i++) {
+                result[i] = abis[i] + (abis[i].contains("64") ? "" : "-noPIE");
+            }
+            return result;
+        } else {
+            return abis;
+        }
+    }
     @Override
     public String getPathToWrite() {
         return context.getFilesDir().getAbsolutePath() + "/";
