@@ -1,7 +1,7 @@
 
 <project name="pigeon-natives" basedir="." default="all">
 	<property environment="env"/>
-	<target name="clean">
+	<target name="cleanup">
 		<ant antfile="build-windows32.xml" target="clean"/>
 		<ant antfile="build-windows64.xml" target="clean"/>
 		<ant antfile="build-linux32.xml" target="clean"/>

@@ -33,9 +33,6 @@ task androidJar(type: Jar) {
     into ('/arm64-v8a') {
         from fileTree('./libs/arm64-v8a')
     }
-    into ('/armeabi') {
-        from fileTree('./libs/armeabi')
-    }
     into ('/armeabi-v7a') {
         from fileTree('./libs/armeabi-v7a')
     }
@@ -54,6 +51,6 @@ repositories {
 ant.importBuild 'jni/build.xml'
 
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.11'
+    testCompile group: 'junit', name: 'junit', version: '4.12'
     compile fileTree(dir: 'libs', include: '*.jar')
 }

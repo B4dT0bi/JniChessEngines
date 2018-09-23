@@ -1,22 +1,37 @@
 buildscript {
     repositories {
         jcenter()
+        maven {
+            url 'https://maven.google.com/'
+            name 'Google'
+        }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.0'
+        classpath 'com.android.tools.build:gradle:3.1.4'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
+        classpath 'digital.wup:android-maven-publish:3.2.0'
     }
 }
 
 allprojects {
-    apply plugin: "eclipse"
     apply plugin: "idea"
 
     version = '1.0'
 
     repositories {
+        maven {
+            credentials {
+                username mavenUser
+                password mavenPassword
+            }
+            url "http://46.4.36.66:58081/repository/slashsoft-release/"
+        }
         jcenter()
         maven { url "https://oss.sonatype.org/content/repositories/releases/" }
+        maven {
+            url 'https://maven.google.com/'
+            name 'Google'
+        }
     }
 }
 
@@ -25,7 +40,7 @@ project(":arasan") {
 
 
     dependencies {
-        testCompile group: 'junit', name: 'junit', version: '4.11'
+        testCompile group: 'junit', name: 'junit', version: '4.12'
         compile project(":core-api")
     }
 }
@@ -35,7 +50,7 @@ project(":hawkeye") {
 
 
     dependencies {
-        testCompile group: 'junit', name: 'junit', version: '4.11'
+        testCompile group: 'junit', name: 'junit', version: '4.12'
         compile project(":core-api")
     }
 }
@@ -45,7 +60,7 @@ project(":sayuri") {
 
 
     dependencies {
-        testCompile group: 'junit', name: 'junit', version: '4.11'
+        testCompile group: 'junit', name: 'junit', version: '4.12'
         compile project(":core-api")
     }
 }
@@ -55,7 +70,7 @@ project(":stockfish") {
 
 
     dependencies {
-        testCompile group: 'junit', name: 'junit', version: '4.11'
+        testCompile group: 'junit', name: 'junit', version: '4.12'
         compile project(":core-api")
     }
 }
@@ -65,7 +80,7 @@ project(":ethereal") {
 
 
     dependencies {
-        testCompile group: 'junit', name: 'junit', version: '4.11'
+        testCompile group: 'junit', name: 'junit', version: '4.12'
         compile project(":core-api")
     }
 }
@@ -75,7 +90,7 @@ project(":gull") {
 
 
     dependencies {
-        testCompile group: 'junit', name: 'junit', version: '4.11'
+        testCompile group: 'junit', name: 'junit', version: '4.12'
         compile project(":core-api")
     }
 }
@@ -85,7 +100,7 @@ project(":texel") {
 
 
     dependencies {
-        testCompile group: 'junit', name: 'junit', version: '4.11'
+        testCompile group: 'junit', name: 'junit', version: '4.12'
         compile project(":core-api")
     }
 }
@@ -95,7 +110,7 @@ project(":senpai") {
 
 
     dependencies {
-        testCompile group: 'junit', name: 'junit', version: '4.11'
+        testCompile group: 'junit', name: 'junit', version: '4.12'
         compile project(":core-api")
     }
 }
@@ -105,7 +120,7 @@ project(":protector") {
 
 
     dependencies {
-        testCompile group: 'junit', name: 'junit', version: '4.11'
+        testCompile group: 'junit', name: 'junit', version: '4.12'
         compile project(":core-api")
     }
 }
@@ -115,7 +130,7 @@ project(":toga_II") {
 
 
     dependencies {
-        testCompile group: 'junit', name: 'junit', version: '4.11'
+        testCompile group: 'junit', name: 'junit', version: '4.12'
         compile project(":core-api")
     }
 }
@@ -125,7 +140,7 @@ project(":crafty") {
 
 
     dependencies {
-        testCompile group: 'junit', name: 'junit', version: '4.11'
+        testCompile group: 'junit', name: 'junit', version: '4.12'
         compile project(":core-api")
     }
 }
@@ -135,7 +150,7 @@ project(":murka") {
 
 
     dependencies {
-        testCompile group: 'junit', name: 'junit', version: '4.11'
+        testCompile group: 'junit', name: 'junit', version: '4.12'
         compile project(":core-api")
     }
 }
